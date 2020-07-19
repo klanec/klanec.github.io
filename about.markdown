@@ -4,15 +4,6 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Hi, I'm Klanec. I have a degree in Computer Science, an OSCP and I'm a big nerd for languages and music. I speak English, Dutch, conversational Japanese and I'm busy learning Swedish. 
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+On the security side, I'm interested in penetration testing, digital forensics, OSINT and Cybercrime but I dabble in a lot of topics, the details of which you can find on this blog here. I participate in CTFs with the team RGBsec.

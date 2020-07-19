@@ -5,7 +5,7 @@ date:   2020-07-19 10:44:11 +0100
 categories: rgbctf
 ---
 
-## Grab Your Jisho
+## **Grab Your Jisho**
 Description: 
 >これは文字化けか？それとも暗号…？ 
 
@@ -15,7 +15,7 @@ First Blood: **8 hours, 56 minutes** after release by team **srdnlen**
 
 Repository [here][git-kanjicipher]
 
-### The Problem
+### **The Problem**
 We are presented with a very long cipher text, a mixture of symbols and logographic characters. Here is a sample from the file:
 
 >騭抾凥 寯鵠嶢洴穴叉蠔 氙鰣獼圦踋厶玄殯呈 朮二鼑駔蚶, 誇爤鶚呀蟹 & 堞世甹厈鄜仈鞵 撚𡵅 娭乚瞖乚寢, 丅顱 𦥑. 坼乙犬掔亅廒片
@@ -26,7 +26,7 @@ We are presented with a very long cipher text, a mixture of symbols and logograp
 >鑑恔鰛弥 醸抅狢颻 圢乄樟磋渉 蝨擺 樚榷棘牴摔亗 乁耀 鷫鑑鱔.床攛闡匛鞁𠘨史霢佣.鼏鎰批
 >剿躡譯肯韞 & 瑛匛㐬皮嘈牜韻 罸亥 脂乚燎亅蓼
 
-### Solution
+### **Solution**
 The first clue is the title. _Jisho_ is the Japanese word for dictionary and all of these characters are, you guessed it, Japanese Kanji. Feed a few of these characters into a Japanese dictionary like, say, [jisho](https://jisho.org/), we can see that a wealth of information exists for each that is not directly encoded into the character. One such piece of information is the `stroke count`. That is, the amount of pen-strokes needed to draw the character. This is the key to this cipher.
 
 Lets take the first 10 characters and see where the `stroke-count` gets us:
@@ -43,7 +43,7 @@ Starting to look a bit like `a1z26`, no? Decoding as such yields:
 
 Great. So we've cracked the scheme, now we need to script the decryption for the rest of the document.
 
-### Decryption
+### **Decryption**
 _KANJIDIC2_ is a popular and extensive open-source resource for indexed information about Japanese Kanji, structured in XML. Download it [here](kanjidic2).
 
 Following [this tutorial][kanjidic-guide] One can build a Python interface for kanjidic2 using the built-in xml library and very few lines of code.
@@ -73,7 +73,7 @@ The `decrypt` function goes through character by character doing the following:
 
 Running our cipher text through the `decrypt` function detailed above will reveal a long ebook from Project Guthenburg. Searching for the flag yields `rgbctf{~|~yominikui~|~}`. 
 
-### Encryption
+### **Encryption**
 How did the encryption work?
 
  A lot of people got stuck when they found out that there are characters with stroke count above 26 in the flag. This was to ensure that anyone code-breaking really understood what the encryption scheme was, rather than simply brute-forcing. These characters `{`, `}`, `~` and `|`, all occur immediately after `z` in ASCII. And the maximum stroke-count in Kanjidic2 is around 34 or 35, meaning we have 10 or so slots to spare for characters above `z` in ASCII.
@@ -120,7 +120,7 @@ def encrypt(plain):
     return "".join(cipher)
 {% endhighlight %}
 
-### Summary
+### **Summary**
 I thought this was an interesting cipher as it allowed us to use a simple substitution method on a plaintext alphabet of 30 characters, while the ciphertext alphabet had thousands of characters, which I think creates a false sense of complexity. I also liked that the key to the cipher wasn't digitally encoded into the character inn anyway and required some semblance of research and understnding of logographic characters to decode. 
 
 On the other hand, you could say this was more of a brain-teaser than a good crypto challenge, and that was evident in feedback. Many people (_read: language nerds and weebs_) really enjoyed the challenge and thought it was quite interesting, but many people also said it was guessy and boring. I suppose more hints should have been given? Or perhaps it would have been better suited to the `misc` category? But thats a lesson for the next CTF I write challenges for.
