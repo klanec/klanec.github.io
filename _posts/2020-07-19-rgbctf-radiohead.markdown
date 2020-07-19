@@ -105,7 +105,7 @@ Virtual            Physical           Name
 0xfffff8a00005d010 0x0000000001d71010 \REGISTRY\MACHINE\HARDWARE
 {% endhighlight %}
 
-We can take the `Virtual` offset of the `SAM` file and `SYSTEM` registry files located above and feed them into out the volatility `hashdump` module with the following syntax:
+We can take the `Virtual` offset of the `SAM` file and `SYSTEM` registry files located above and feed them into the volatility `hashdump` module with the following syntax:
 
 `volatility -f data --profile=$PROFILE hashdump -y $SYSTEM_OFFSET -s $SAM_OFFSET`
 
