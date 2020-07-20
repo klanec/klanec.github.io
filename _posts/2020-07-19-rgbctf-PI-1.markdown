@@ -1,0 +1,198 @@
+---
+layout: default
+title:  "rgbctf2020 - PI 1: Magic in the Air- Writeup"
+date:   2020-07-19 22:00:41 +0100
+categories: rgbctf
+---
+
+## **PI 1: Magic in the Air**
+Description: 
+>We are investigating an individual we believe is connected to a group smuggling drugs into the country and selling them on social media. You have been posted on a stake out in the apartment above theirs and with the help of space-age eavesdropping technology have managed to extract some data from their computer. What is the phone number of the suspect's criminal contact?
+>>flag format includes country code so it should be in the format: rgbCTF{+00000000000}
+
+Category: *Forensics*
+
+First Blood: **3 hour, 4 minutes** after release  by team **dcua**
+
+Attempt this challenge by downloading it from [here][gdrive-PI1]
+
+### PI 1: Solution
+
+Unzipping the data reveals a file with no extension. We can check its type with the `file` command:
+
+{% highlight shell %}
+$ file data
+data: BTSnoop version 1,
+{% endhighlight %}
+
+BTSnoop is a bluetooth packet capture and is handled well by Wireshark. Lets open it there to have a look.
+
+![image](/assets/images/rgbctf/pi/pi1_wireshark1.png)
+
+The first part of the packet capture is littered with bluetooth handshake noise that we can ignore for now, what we want to find out is what kind of device we are eavesdropping on. One of the first packets to transmit data from the device after session is established is in the above picture. Observe 3 important fields in wireshark:
+
+- [Source Device Name:   G613]
+- Handle: 0x002c (Human Interface Device: Report)
+- Value: 001c0000000000
+- [Expert Info (Note/Undecided): Undecoded]
+
+Starting from the bottom, whatever this `Value` field is, it occurrs in every packet sent from our remote bluetooth device to the PC we are eavesdropping from. The `Expert Info: Undecoded` is Wireshark telling us that this `Value` field was decoded automatically, as wireshark has detected the bluetooth key exchange caught earlier in the capture file. We know it is a `Human Interface Device` and after googling the device name, `G613`, we find out that it is in fact, a bluetooth keyboard that we are eavesdropping on.
+
+Considering we are looking at bluetooth packets coming from a keyboard, and (excluding the Bluetooth pairing packets) our keyboard is sending data (the `Value` field) over and over again to our host computer, AND that `Value` field is changing every time, it is not a short logical jump to make to assume that each `Value` field represents some kind of keyboard event. For example a keypress.
+
+There are many ways to proceed here, but I opt for exporting the packet capture as JSON (`File -> export packet dissections -> as JSON`) and processing it further in an `IPython` terminal.
+
+First we need a function to strip out the btatt `Value` field:
+
+{% highlight python %}
+def get_key_btatt_value(cap):
+    """ Data in flight captured through btmon of a HID like a keyboard will use the btatt protocol's value field to transmit
+
+    This functions gets only the btatt.value field as a list in order of packet time
+    """
+    l = []
+    for x in cap:
+        try:
+            btatt_value = x['_source']['layers']['btatt'].get('btatt.value')
+            if btatt_value:
+                l.append(btatt_value)
+        except (AttributeError, KeyError):
+            pass
+    return l
+{% endhighlight %}
+
+Then we can run it on the json output from wireshark of our packet capture:
+
+{% highlight python %}
+In [26]: import json                                                                  
+
+In [27]: cap = json.load(open("out.json", "r"))                                       
+
+In [28]: get_key_btatt_value(cap)                                            
+Out[28]: 
+['00:12:00:00:00:00:00',
+ '00:00:00:00:00:00:00',
+ '00:12:00:00:00:00:00',
+ '00:00:00:00:00:00:00',
+ '00:2c:00:00:00:00:00',
+ '00:00:00:00:00:00:00',
+ '00:10:00:00:00:00:00',
+ '00:00:00:00:00:00:00',
+ '00:04:00:00:00:00:00',
+ '00:00:00:00:00:00:00',
+ '00:11:00:00:00:00:00',
+ '00:00:00:00:00:00:00',
+ '00:28:00:00:00:00:00',
+ '00:00:00:00:00:00:00',
+ '00:16:00:00:00:00:00',
+ ...]
+{% endhighlight %}
+
+Using some [documentation online][btusbhid], we can begin to understand how this data is formatted. The second byte is the key value and the first byte indicates whether SHIFT is held down.
+
+{% highlight python %}
+def is_key_press(p):
+    """ Bluetooth keyboards will not only communicate OnKeyPress
+    but also onKeyReleased. We need to filter that out.
+    """
+    if len(p) == 20:
+    	data = p.split(':')
+    	is_keyval = int(data[1], 16) != 0
+    	has_timestamp = int(data[2], 16) != 0 #I think this data value is a timestamp or velocity value?
+    	return is_keyval and not has_timestamp
+    else:
+        return False
+
+
+def get_key_value(l):
+    out = ''
+
+    #alphabet
+    translator = {i:chr(i+93) for i in range(4,30)}
+
+    #symbols
+    translator[42] = "<BKSP>"
+    translator[44] = " "
+    translator[40] = "\n"
+    translator[56] = "?"
+    translator[46] = "+"
+    translator[52] = "'"
+    translator[54] = ","
+
+    #numbers
+    translator[39] = "0"
+    numbers = {i+29:str(i) for i in range(1,10)}
+    translator.update(numbers)
+
+    for x in get_key_btatt_value(l):
+        if is_key_press(x):
+            data = x.split(':')
+            i = int(data[1], 16)
+            c = translator.get(i, "<?_{}_?>".format(i))
+            
+            # Check SHIFT key down in the first byte 
+            if data[0] == "20":
+                c = "<SHFT_{}>".format(c)
+            
+            out += c
+
+    return out
+{% endhighlight %}
+
+We can filter out `Value` data that doesn't pertain to an actual keypress as this won't contribute to the readability of our evesdropped message. With that in mind, we can simply decode character by caracter as follows:
+
+
+{% highlight python %}
+In [37]: print(get_key_value(cap))
+{% endhighlight %}
+
+{% highlight plaintext %}
+yoo man
+sorry for the delay lol
+
+trying to get tyi<BKSP><BKSP><BKSP>this keyboard workinn
+
+yea its new<?_55_?> wireless mang<BKSP><?_55_?> 
+
+been moving product
+
+speakin of you needed to contact my boy right<SHFT_?>
+
+ye
+
+should be fine just say <SHFT_j>ohnny <SHFT_h> sent you
+
+alright lemme get you the number
+
+hold up <SHFT_i>'m looking for it
+
+its his burner, got it written down somewhere
+
+yeah got it
+
+0736727859
+
+mind it is a swwedish number<?_55_?> he got it on holiday there few months back
+
+yeah you can buy burners super easily there
+
+alright g
+
+yeah its <SHFT_ >donny l
+
+remember to tell him i sent you
+
+peace
+
+x
+{% endhighlight %}
+
+Awesome. We have intercepted one half of a conversation it seems. Our suspect has leaked several bits of personally indentifiable information. We have a phone number and we know its Swedish and we know the flag format uses the international country code format. Thus the flag is `rgbCTF{+46736727859}`
+
+Find the Private Investigator 2 writeup [here]({% post_url 2020-07-20-rgbctf-PI-2 %}).
+
+
+
+
+[btusbhid]: https://cdn.sparkfun.com/datasheets/Wireless/Bluetooth/RN-HID-User-Guide-v1.0r.pdf
+[gdrive-PI1]: https://drive.google.com/uc?export=download&id=1URjUEjUnO_Z1eDdsf2FSDRnFbS0TpNc6

@@ -16,7 +16,7 @@ Category: *Beginner - Forensics*
 
 First Blood: **1 hour, 24 minutes** after release  by team **redpwn**
 
-Attempt this challenge with by downloading the [dump file][gdrive-memdump]
+Attempt this challenge by downloading the [dump file][gdrive-memdump]
 
 ### **The Problem**
 We are presented with a file with no extension and told we need to extract all of the passwords from it.

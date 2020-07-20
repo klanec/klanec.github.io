@@ -1,0 +1,122 @@
+---
+layout: default
+title:  "rgbctf2020 - PI 2: A Series of Tubes - Writeup"
+date:   2020-07-19 22:00:41 +0100
+categories: rgbctf
+---
+
+## **PI 2: A Series of Tubes**
+Description: 
+> Use the personal information uncovered from PI 1 to find out where our suspect's contact lives, his full name and the next flight he is taking.
+>
+>The flag for this challenge is in the following format: rgbCTF{firstnamelastname:homecity:countrycode:flightnumber}
+>where countrycode is the ISO 3166-1 Alpha 2 code
+>
+>all lowercase, no whitespace or symbols
+
+
+Category: *OSINT*
+
+First Blood: **7 hour, 25 minutes** after release  by team **CatsGetRoot**
+
+Though the breadcrumb trail will go dark halfway through, most of the social media accounts for this challenge will remain online, so feel free to have a go at it while reading along.
+
+### **The Solution**
+So in [Private Investigator 1: Magic in the Air]({% post_url 2020-07-19-rgbctf-PI-1 %}), we managed to eavesdrop on Johnny's keyboard. Johnny discloses a phone number, +46736727859, as well as the name `Donny L`, which we can hopefully use to dox his contact.
+
+From the description in PI 1, we have another hint:
+
+>We are investigating an individual we believe is connected to a group smuggling drugs into the country and selling them on social media.
+
+We have a phone number, and suspicion that our suspect's are rather active on social media, what are the potential vectors here? First lets add him to contacts and check if he has a whatsapp, telegram or Line account linked to the phone number.
+
+![add_contact]
+
+Once added, searching for the contact's name in whatsapp shows that our friend Donny does indeed have a whatsapp account.
+
+![found_whatsapp]
+
+And perhaps Donny didn't realize that whatsapp statuses are public?
+
+![whatsapp_status]
+
+>hit me on sc
+
+Lets try the same technique on Snapchat. Sync snapchat with your contacts (gross, I know. Create a burner account) and you will see that he has a snapchat account registered to the very same phone number as well.
+
+![found_snapchat]
+
+Keeping this a passive OSINT hunt, don't add Donny as a friend (lol unless you want to), as he has set his snapchat story to public. The story contains a photo of his instagram with a message to his friends.
+
+![insta_pivot]
+
+Searching for the leaked instagram name, we find only a few matching accounts, one of which matches the profile picture of our snapchat intel. Our mate Donny has kept his instagram highlights totally public and has leaked a worrying amount of personal information. We know we are looking for a flight number and Donny has spilled the beans that he is flying, but he has censored the screenshot:
+
+![insta2]
+
+If only we could determine what his departing airport was, then we'd have somewhere to start looking for the flight number. Well. Donny has leaked a fair amount of location information in his posts including the city and neighbourhood he lives in:
+
+![insta1]
+
+Some research shows that `Brum` is a slang term for English city of `Birmingham` in the West Midlands.
+
+![insta4]
+
+Searching `Digbeth`, or simply clicking the post, which is location tagged, reveals that it is an area in Central Birmingham.
+
+![insta3]
+
+`Selly` is slightly more obscure, but a search for `selly birmingham` reveals that this is in fact the abbreviation of an area in South-West Birmingham known as `Selly Oak`. 
+
+> Quiet night in Selly with housemates
+
+So he probably lives in Selly Oak, Birmingham
+
+And the smoking gun:
+
+![insta5]
+
+![insta6]
+
+He asks a question about how to get to the airport to his instagram followers and some absolute madman has only gone and revealed that he is only 30 minutes from the airport. Good thing he made sure that only his mates were on his Instagram, right?
+
+A search reveals that Birmingham has an international airport, `BHX`, and that `Selly Oak` indeed has a train station that is very well connected to `BHX`
+
+Searching any flight aggregator for the target date and times listed from `BHX` to `AMS` reveals that there is a KLM flight, `kl1426`, that flies this route.
+
+So we have the flag: `rgbCTF{donovanlockheart:birmingham:gb:kl1426}`
+
+
+
+[add_contact]: /assets/images/rgbctf/pi/pi2_add_contact.jpeg
+{: height="585px" width="270px"}
+
+[found_whatsapp]: /assets/images/rgbctf/pi/pi2_check_whatsapp.jpeg
+{: height="585px" width="270px"}
+
+[whatsapp_status]: /assets/images/rgbctf/pi/pi2_public_whatsapp.jpeg
+{: height="585px" width="270px"}
+
+[found_snapchat]: /assets/images/rgbctf/pi/pi2_snapchat_pivot.jpeg
+{: height="450px" width="375px"}
+
+[insta_pivot]: /assets/images/rgbctf/pi/pi2_pivot_insta.jpeg
+{: height="606px" width="315px"}
+
+[insta1]: /assets/images/rgbctf/pi/pi2_insta1.jpeg
+{: height="585px" width="270px"}
+
+[insta2]: /assets/images/rgbctf/pi/pi2_insta2.jpeg
+{: height="585px" width="270px"}
+
+[insta3]: /assets/images/rgbctf/pi/pi2_insta3.jpeg
+{: height="585px" width="270px"}
+
+[insta4]: /assets/images/rgbctf/pi/pi2_insta4.jpeg
+{: height="585px" width="270px"}
+
+[insta5]: /assets/images/rgbctf/pi/pi2_insta5.jpeg
+{: height="585px" width="270px"}
+
+[insta6]: /assets/images/rgbctf/pi/pi2_insta6.jpeg
+{: height="585px" width="270px"}
