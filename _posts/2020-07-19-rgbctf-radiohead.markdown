@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "rgbctf2020 - Name a More Iconic Band - Writeup"
+title:  "rgbctf2020 - Name a More Iconic Band"
 date:   2020-07-19 11:45:11 +0100
 categories: rgbctf
 ---

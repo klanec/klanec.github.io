@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "rgbctf2020 - PI 1: Magic in the Air- Writeup"
+title:  "rgbctf2020 - PI 1: Magic in the Air"
 date:   2020-07-19 22:00:41 +0100
 categories: rgbctf
 ---

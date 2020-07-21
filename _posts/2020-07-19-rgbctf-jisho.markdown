@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "rgbctf2020 - Grab your Jisho - Writeup"
+title:  "rgbctf2020 - Grab your Jisho"
 date:   2020-07-19 10:44:11 +0100
 categories: rgbctf
 ---

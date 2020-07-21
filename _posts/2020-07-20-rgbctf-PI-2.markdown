@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "rgbctf2020 - PI 2: A Series of Tubes - Writeup"
+title:  "rgbctf2020 - PI 2: A Series of Tubes"
 date:   2020-07-19 22:00:41 +0100
 categories: rgbctf
 ---
