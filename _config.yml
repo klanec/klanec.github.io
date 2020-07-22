@@ -21,7 +21,7 @@
 title: Klanec's Blog
 email: nicholas.ss.harris@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  A blog containing my exporation into computer security, code, languages and music production
+  A blog containing my exploration into computer security, code, languages and music production
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  klanec

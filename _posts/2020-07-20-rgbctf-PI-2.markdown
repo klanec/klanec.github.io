@@ -89,6 +89,8 @@ Searching any flight aggregator for the target date and times listed from `BHX` 
 
 So we have the flag: `rgbCTF{donovanlockheart:birmingham:gb:kl1426}`
 
+See the write up for part 3 of thie series [here]({% post_url 2020-07-21-rgbctf-PI-3 %})
+
 [add_contact]: /assets/images/rgbctf/pi/pi2_add_contact.jpeg
 {: height="585px" width="270px"}
 

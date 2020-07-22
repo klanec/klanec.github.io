@@ -126,7 +126,7 @@ The Rx audio is data received by the device we are capturing packets on, Tx is d
 
 I have merged and converted both Rx and Tx to an mp3, so you can listen in on the phone call in your browser, see [here][mp3_call]
 
-Listening to the audio file we can discern that our suspect is "changing the password" to `appliepie`. So we take an MD5 hash of `applepie` for the flag: `rgbCTF{6cc7c5a5a21978e5587a59186cadb5e3}`
+Listening to the audio file we can discern that our suspect is "changing the password" to `applepie`. So we take an MD5 hash of `applepie` for the flag: `rgbCTF{6cc7c5a5a21978e5587a59186cadb5e3}`
 
 The above IPython scripts have been compiled into a script file below:
 
