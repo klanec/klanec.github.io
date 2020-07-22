@@ -16,6 +16,8 @@ First Blood: **3 hour, 4 minutes** after release  by team **dcua**
 
 Attempt this challenge by downloading it from [here][gdrive-PI1]
 
+The other questions in this series: [PI2]({% post_url 2020-07-20-rgbctf-PI-2 %}) and [PI3]({% post_url 2020-07-21-rgbctf-PI-3 %})
+
 ### PI 1: Solution
 
 Unzipping the data reveals a file with no extension. We can check its type with the `file` command:

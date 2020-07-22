@@ -19,7 +19,10 @@ Category: *OSINT*
 
 First Blood: **7 hour, 25 minutes** after release  by team **CatsGetRoot**
 
+The other questions in this series: [PI1]({% post_url 2020-07-19-rgbctf-PI-1 %}) and [PI3]({% post_url 2020-07-21-rgbctf-PI-3 %})
+
 Though the breadcrumb trail will go dark halfway through, most of the social media accounts for this challenge will remain online, so feel free to have a go at it while reading along.
+
 
 ### **The Solution**
 So in [Private Investigator 1: Magic in the Air]({% post_url 2020-07-19-rgbctf-PI-1 %}), we managed to eavesdrop on Johnny's keyboard. Johnny discloses a phone number, +46736727859, as well as the name `Donny L`, which we can hopefully use to dox his contact.
@@ -85,8 +88,6 @@ A search reveals that Birmingham has an international airport, `BHX`, and that `
 Searching any flight aggregator for the target date and times listed from `BHX` to `AMS` reveals that there is a KLM flight, `kl1426`, that flies this route.
 
 So we have the flag: `rgbCTF{donovanlockheart:birmingham:gb:kl1426}`
-
-
 
 [add_contact]: /assets/images/rgbctf/pi/pi2_add_contact.jpeg
 {: height="585px" width="270px"}
