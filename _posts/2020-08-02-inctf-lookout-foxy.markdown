@@ -1,7 +1,7 @@
 ---
 layout: default
 title:  "InCTF 2020 - Lookout Foxy"
-date:   2020-08-02 10:00:00 +0100
+date:   2020-08-02 16:30:00 +0100
 categories: inctf
 ---
 
