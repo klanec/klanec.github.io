@@ -2,7 +2,7 @@
 layout: default
 title:  "Stockholm Japanese Intermediate Reading Circle"
 date:   2026-05-15 15:20:00 +0100
-categories: HackTheBox
+categories: Japanese
 ---
 
 # Stockholm Japanese Intermediate Reading Circle
