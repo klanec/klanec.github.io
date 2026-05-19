@@ -10,48 +10,54 @@ categories: Japanese
 We will be reading "Convenience Store Woman" by Sayaka Murata in preparation for
 the next term at Folkuniversitetet.
 
-## Pace
-
-The goal is to meet once per week and read roughly **14 pages** in preparation
-for each session. 
-
-In the e-book version, this translates to somewhere between **10 and 12%**
-progress. 
-
-This might be too high pace, but lets try it for the first week and adjust from
-there.
-
-## Files
-
-Some other support files for this reading circle can be requested from Nick in
-the WhatsApp group.
-
 ---
 
-# Session 0 - week 21
+# Session 0 - week 21 - COMPLETE
 
 ## Prep
 
-No prep for this session!
+No prep for this session! We are starting out to see what the pace should be like
+and experiment with how we want to run the session.
 
-## Plan
+## Summary
 
-Lets meet and get started with reading through, to gauge pace/level
-that is appropriate.
+Today we started from the beginning and read through 2 and a half pages. One
+sentence at a time. Each paragraph we stopped and then translated the Japanese
+into English/Swedish, again in turns, sentence by sentence with a little
+discussion in between.
+
+We decided a lower pace might be more realistic. And have set the goal to read 6 pages
+for next week. If it feels too slow, we can always up the pace!
+
+We read pages 7 to 9, that is the beginning of the book until:
+
+```
+…電子マネーで支払いをするのだなと咄嗟に判断する。
+「支払い、スイカで」
+```
 
 ---
 
-# Session 1 - week 22
+# Session 1 - week 22 - UPCOMING
 
 ## Prep
 
-The paper book will be pages **7 to 21**.\
-For the eBook version this should be around the **10%** mark.
+The paper book will be pages **10 to 15**.
 
-For reference, this is the last sentence:
+For reference, this will be from:
 
 ```
-オフィス街だからスーツや制服姿の客ばかりを頭に浮かべていたが、最初に入ってきたのは、
-皆で配った割引のチラシを持った、住民風の集団だった。
+「かしこまりました。そちらにスイカクのタッチをお願いします」
+客の細かい仕草や視線を自動的に読み取って、…
 ```
+
+to
+
+```
+…皆が悲壮な様子で止めてと言っても収まらないので、黙ってもらおうと思って先生に走り寄ってスカートとパンツを勢いよく下ろした。
+若い女の先生は仰天して泣きだした、静かになった。
+```
+
+We will read together from page 15 next time.
+
 
